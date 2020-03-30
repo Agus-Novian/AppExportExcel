@@ -38,7 +38,7 @@ namespace AppExportExcel
             string from = dtpFrom.Value.ToString("yyyy-MM-dd");
             string to = dtpTo.Value.ToString("yyyy-MM-dd");
 
-            SqlDataAdapter da = new SqlDataAdapter("SELECT t.kode 'TRX ID', t.tgl_entri 'TGL ENTRI', t.kode_produk 'PRODUK', t.qty 'QTY', t.tujuan 'TUJUAN', t.kode_reseller 'KODE RESELLER', m.label 'MODUL', j.kata_kunci_1 'STATUS', t.harga_beli 'HARGA BELI', t.harga 'HARGA JUAL', t.harga - t.harga_beli 'LABA', t.sn 'SN', t.saldo_awal 'SALDO AKHIR' FROM transaksi t JOIN modul m ON t.kode_modul = m.kode JOIN jawaban j on t.status = j.status WHERE CAST(tgl_entri as date) BETWEEN '" + from + "' AND '" + to + "' ORDER BY kode_reseller OFFSET 0 ROWS FETCH NEXT 500 ROWS ONLY", conn);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT t.kode 'TRX ID', t.tgl_entri 'TGL ENTRI', t.kode_produk 'PRODUK', t.qty 'QTY', t.tujuan 'TUJUAN', t.kode_reseller 'KODE RESELLER', m.label 'MODUL', t.status 'STATUS', t.harga_beli 'HARGA BELI', t.harga 'HARGA JUAL', t.harga - t.harga_beli 'LABA', t.sn 'SN', t.saldo_awal 'SALDO AKHIR' FROM transaksi t INNER JOIN modul m ON t.kode_modul = m.kode WHERE t.status = 20 AND CAST(tgl_entri as date) BETWEEN '" + from + "' AND '" + to + "' ORDER BY kode_reseller", conn);
 
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -51,7 +51,7 @@ namespace AppExportExcel
         {
             // Prepare the output filenames
             string timeMark = DateTime.Now.ToString("yyyyMMdd");
-            string cellByCellFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Hasil_" + timeMark + ".xls");
+            string cellByCellFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Laporan_" + timeMark + ".xls");
 
             this.ResultListBox.Items.Clear();
 
