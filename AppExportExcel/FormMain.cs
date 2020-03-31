@@ -38,7 +38,7 @@ namespace AppExportExcel
             string from = dtpFrom.Value.ToString("yyyy-MM-dd");
             string to = dtpTo.Value.ToString("yyyy-MM-dd");
 
-            SqlDataAdapter da = new SqlDataAdapter("SELECT t.kode 'TRX ID', t.tgl_entri 'TGL ENTRI', t.kode_produk 'PRODUK', t.qty 'QTY', t.tujuan 'TUJUAN', t.kode_reseller 'KODE RESELLER', m.label 'MODUL', CASE WHEN t.status = 20 THEN 'Sukses' ELSE 'Gagal' END AS STATUS, t.harga_beli 'HARGA BELI', t.harga 'HARGA JUAL', t.harga - t.harga_beli 'LABA', t.sn 'SN', t.saldo_awal 'SALDO AKHIR' FROM transaksi t INNER JOIN modul m ON t.kode_modul = m.kode WHERE t.status = 20 AND CAST(tgl_entri as date) BETWEEN '" + from + "' AND '" + to + "' ORDER BY kode_reseller", conn);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT t.kode 'TRX ID', t.tgl_entri 'TGL ENTRI', t.kode_produk 'PRODUK', t.qty 'QTY', t.tujuan 'TUJUAN', t.kode_reseller 'KODE RESELLER', m.label 'MODUL', CASE WHEN t.status = 20 THEN 'Sukses' ELSE 'Gagal' END AS STATUS, t.harga_beli 'HARGA BELI', t.harga 'HARGA JUAL', t.harga - t.harga_beli 'LABA', t.sn 'SN', t.saldo_awal-t.harga 'SALDO AKHIR' FROM transaksi t INNER JOIN modul m ON t.kode_modul = m.kode WHERE t.status = 20 AND CAST(tgl_entri as date) BETWEEN '" + from + "' AND '" + to + "' ORDER BY kode_reseller", conn);
 
             DataSet ds = new DataSet();
             da.Fill(ds);
