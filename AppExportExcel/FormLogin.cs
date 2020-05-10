@@ -81,7 +81,7 @@ namespace AppExportExcel
                         }
                         if (txtUID.Text == "pusat")
                         {
-                            cmbDB.SelectedIndex = 6;
+                            cmbDB.SelectedIndex = 10;
                         }
                         else if (txtUID.Text == "retail")
                         {
